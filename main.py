@@ -1,12 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
+import numpy as np
 
 headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
 
 club_value_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstemannschaften/marktwertetop"
 footballer_value_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop"
 
-playerList = []
+playerList1 = []
+playerList2 = []
+x = 0
 
 def clubCheck(club):
     print("buraya da girdim")
@@ -39,29 +42,41 @@ def getList(soup, select):
             print(str(count).rjust(2), club.ljust(70,"."), league.ljust(30), value.strip().ljust(5))
 
     if select == 2:
+        global x
         list_footballer = soup.find("table",{"class":"items"}).find("tbody")
         count = 0
 
         #TODO title gelecek
 
-        for j in list_footballer.find_all("tr",{"class":"odd"}):
-            name = j.find_all("td")[3].text.strip()
-            position = j.find_all("td")[4].text.strip()
-            age = j.find_all("td")[5].text.strip()
-            value = j.find_all("td")[8].text.strip()
+        for temp_name_value in list_footballer.find_all("td",{"class":"hauptlink"}):
+            add1 = temp_name_value.find("a").text.strip()
+
             count +=1
+            playerList1.append(add1)
 
-            #print(name)
-            #print(position)
-            #print(age)
-            #print(value)
+        count = 0
+        print(count)
 
-            playerList.append(name)
+        for temp_age in list_footballer.find_all("tbody"):
+            add2 = temp_age.find_all("tr")[1].text.strip()
+            #add2 = temp_age.find("td")[3]
+            print(add2)
 
-            #print(str(count).rjust(2), name.ljust(70,"."), age.ljust(30), value.strip().ljust(5))
-        
-        for a in playerList:
-            print(a)
+
+            count +=1
+            playerList2.append(add2)
+
+        for name in range(0,50,2):
+            print(playerList1[name])
+
+        for value in range(1,50,2):
+            print(playerList1[value])
+
+        """
+        for age in range(0,50):
+            print(playerList2[age])
+        """
+            
 
 
 #getSoup(club_value_url, 1)
