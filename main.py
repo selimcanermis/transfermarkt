@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import urls
+import info
 
 headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
 
@@ -92,13 +93,85 @@ def getList(soup, choice):
                     x = False
                     break
             value_no += 1
-        print("-"*100)
         playerList1.clear()
 
+def menu():
+    info.infoScript()
+    start = False
+    loop = True
+    while loop == True:
+        if start == False:
+            print("-"*30)
+            print("TRANSFERMARKT VERILERI".rjust(25))
+            print("-"*30)
+            first_choice = input("1- En değerli kulüpler\n2- En değerli futbolcular \n3- En değerli milli takımlar \n0- Çıkış\nSeçiminiz?: ")
+            print("-"*30)
+
+            if first_choice == "0":
+                loop = False
+                break
+            else:
+                start = True
+    
+        if start == True:
+            if first_choice == "1":
+                choice = input("1- Genel en değerli kulüpler\n2- Türkiye\n3- İngiltere\n4- İspanya\n5- Almanya\n6- İtalya\n7- Fransa\n8- Portekiz\n9- Hollanda\n10- Belçika\n0- Geri\nYour Choice?: ")
+                print("-"*30)
+                if choice == "0":
+                    start = False
+                else:
+                    if choice=="1":
+                        getSoup(urls.wr_club_val, 1) #! GENEL
+                    elif choice=="2":
+                        getSoup(urls.tr_club_val, 1) #! TÜRKİYE
+                    elif choice=="3":
+                        getSoup(urls.eng_club_val, 1) #! İNGİLTERE
+                    elif choice=="4":
+                        getSoup(urls.esp_club_val, 1) #! İSPANYA
+                    elif choice=="5":
+                        getSoup(urls.ger_club_val, 1) #! ALMANYA
+                    elif choice=="6":
+                        getSoup(urls.ita_club_val, 1) #! İTALYA
+                    elif choice=="7":
+                        getSoup(urls.fra_club_val, 1) #! FRANSA
+                    elif choice=="8":
+                        getSoup(urls.por_club_val, 1) #! PORTEKİZ
+                    elif choice=="9":
+                        getSoup(urls.net_club_val, 1) #! HOLLANDA
+                    elif choice=="10":
+                        getSoup(urls.bel_club_val, 1) #! BELÇİKA
+
+            elif first_choice == "2":
+                choice = input("1- Genel en değerli futbolcular\n2- Mevkilerine göre en değerli futbolcular\n0- Geri\nYour Choice?: ")
+                print("-"*30)
+                if choice == "0":
+                    start = False
+                else:
+                    if choice=="1":
+                        getSoup(urls.wr_footballer_all_val, 2) #! GENEL
+                    elif choice=="2":
+                        position_choice = input("1- Kaleciler\n2- Defanslar\n3- Orta Sahalar\n4- Forvetler\n0- Geri\nYour Choice?: ")
+                        print("-"*30)
+                        if position_choice == "0":
+                            break
+                        elif position_choice == "1":
+                            getSoup(urls.wr_gkp_val, 2)
+                        elif position_choice == "2":
+                            getSoup(urls.wr_def_val, 2)
+                        elif position_choice == "3":
+                            getSoup(urls.wr_mid_val, 2)
+                        elif position_choice == "4":
+                            getSoup(urls.wr_frwd_val, 2)
+
+            elif first_choice == "3":
+                getSoup(urls.national_team_val, 3)
+            
+            start = False
+
+menu()
 
 
-
-#getSoup(wr_club_val_url, 1)
+#getSoup(wr_club_val, 1)
 
 """
 getSoup(urls.wr_footballer_all_val, 2)
@@ -123,5 +196,5 @@ getSoup(urls.bundesliga, 2)
 getSoup(urls.seria, 2)
 getSoup(urls.laliga, 2)
 """
-getSoup(urls.ligue1, 2)
+#getSoup(urls.ligue1, 2)
 

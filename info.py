@@ -1,7 +1,7 @@
 def infoScript():
         print("\n\n")
         print("#"*50)
-        print("#                 KITAP FIYAT LISTESI            #")
+        print("#               TRANSFERMARKT VERİLERİ           #")
         print("#"*50)
         print("#developer           :Selim Can ERMİŞ            #")
         print("#email               :ermisselimcan<@>gmail.com  #")
