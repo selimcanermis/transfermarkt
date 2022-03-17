@@ -1,44 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
+import urls
 
 headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
-
-national_team_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstenationalmannschaften/marktwertetop"
-
-wr_club_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstemannschaften/marktwertetop"
-tr_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=174&kontinent_id=0&yt0=G%C3%B6ster"
-eng_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=189&kontinent_id=0&yt0=G%C3%B6ster"
-ita_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=75&kontinent_id=0&yt0=G%C3%B6ster"
-esp_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=157&kontinent_id=0&yt0=G%C3%B6ster"
-fra_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=50&kontinent_id=0&yt0=G%C3%B6ster"
-ger_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=40&kontinent_id=0&yt0=G%C3%B6ster"
-bel_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=19&kontinent_id=0&yt0=G%C3%B6ster"
-net_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=122&kontinent_id=0&yt0=G%C3%B6ster"
-por_club_val_url = "https://www.transfermarkt.com.tr/vereins-statistik/wertvollstemannschaften/marktwertetop/plus/0/galerie/0?land_id=136&kontinent_id=0&yt0=G%C3%B6ster"
-
-wr_footballer_all_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop"
-wr_gkp_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=Torwart&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=0&kontinent_id=0&yt0=G%C3%B6ster"
-wr_def_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=Abwehr&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=0&kontinent_id=0&yt0=G%C3%B6ster"
-wr_mid_val_url ="https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=Mittelfeld&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=0&kontinent_id=0&yt0=G%C3%B6ster"
-wr_frwd_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=Sturm&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=0&kontinent_id=0&yt0=G%C3%B6ster"
-
-tr_footballer_all_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=alle&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=174&kontinent_id=0&yt0=G%C3%B6ster"
-tr_gkp_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=Torwart&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=174&kontinent_id=0&yt0=G%C3%B6ster"
-tr_def_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=Abwehr&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=174&kontinent_id=0&yt0=G%C3%B6ster"
-tr_mid_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=Mittelfeld&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=174&kontinent_id=0&yt0=G%C3%B6ster"
-tr_frwd_val_url = "https://www.transfermarkt.com.tr/spieler-statistik/wertvollstespieler/marktwertetop/plus/0/galerie/0?ausrichtung=Sturm&spielerposition_id=alle&altersklasse=alle&jahrgang=0&land_id=174&kontinent_id=0&yt0=G%C3%B6ster"
-
-
-champions_url = "https://www.transfermarkt.com.tr/uefa-champions-league/marktwerte/pokalwettbewerb/CL"
-europa_url = "https://www.transfermarkt.com.tr/europa-league/marktwerte/pokalwettbewerb/EL"
-superlig_url = "https://www.transfermarkt.com.tr/super-lig/marktwerte/wettbewerb/TR1"
-premier_url = "https://www.transfermarkt.com.tr/premier-league/marktwerte/wettbewerb/GB1"
-bundesliga_url = "https://www.transfermarkt.com.tr/1-bundesliga/marktwerte/wettbewerb/L1"
-ligue1_url = "https://www.transfermarkt.com.tr/ligue-1/marktwerte/wettbewerb/FR1"
-laliga_url = "https://www.transfermarkt.com.tr/primera-division/marktwerte/wettbewerb/ES1"
-seria_url = "https://www.transfermarkt.com.tr/serie-a/marktwerte/wettbewerb/IT1"
-
-
 
 playerList1 = []
 playerList2 = []
@@ -137,26 +101,27 @@ def getList(soup, choice):
 #getSoup(wr_club_val_url, 1)
 
 """
-getSoup(wr_footballer_all_val_url, 2)
-getSoup(wr_gkp_val_url, 2)
-getSoup(wr_def_val_url, 2)
-getSoup(wr_mid_val_url, 2)
-getSoup(wr_frwd_val_url, 2)
+getSoup(urls.wr_footballer_all_val, 2)
+getSoup(urls.wr_gkp_val, 2)
+getSoup(urls.wr_def_val, 2)
+getSoup(urls.wr_mid_val, 2)
+getSoup(urls.wr_frwd_val, 2)
 
-getSoup(tr_footballer_all_val_url, 2)
-getSoup(tr_gkp_val_url, 2)
-getSoup(tr_def_val_url, 2)
-getSoup(tr_mid_val_url, 2)
-getSoup(tr_frwd_val_url, 2)
+getSoup(urls.tr_footballer_all_val, 2)
+getSoup(urls.tr_gkp_val, 2)
+getSoup(urls.tr_def_val, 2)
+getSoup(urls.tr_mid_val, 2)
+getSoup(urls.tr_frwd_val, 2)
 """
-
-#getSoup(national_team_val_url, 3)
-getSoup(champions_url, 2)
-getSoup(europa_url, 2)
-getSoup(superlig_url, 2)
-getSoup(premier_url, 2)
-getSoup(bundesliga_url, 2)
-getSoup(seria_url, 2)
-getSoup(laliga_url, 2)
-getSoup(ligue1_url, 2)
+"""
+#getSoup(urls.national_team_val_url, 3)
+getSoup(urls.champions, 2)
+getSoup(urls.europa, 2)
+getSoup(urls.superlig, 2)
+getSoup(urls.premier, 2)
+getSoup(urls.bundesliga, 2)
+getSoup(urls.seria, 2)
+getSoup(urls.laliga, 2)
+"""
+getSoup(urls.ligue1, 2)
 
