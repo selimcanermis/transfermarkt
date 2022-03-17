@@ -95,7 +95,7 @@ def getList(soup, choice):
         print("-"*100)
         playerList1.clear()
 
-    
+
 
 
 #getSoup(wr_club_val_url, 1)
