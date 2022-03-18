@@ -15,13 +15,29 @@ def positionSelect():
     return temp
 
 def clubCheck(club):
-    print("buraya da girdim")
     if not club:
         club = "No Club Name"
     else:
         club = club.string
         print("2")
     return club
+
+def titleScript(param, title_param):
+    if title_param == "teams":
+        title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
+        print("-"*100)
+        print("|" + title.rjust(60) + "|".rjust(39," "))
+        print("-"*100)
+    elif title_param == "players":
+        title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
+        print("-"*100)
+        print("|" + title.rjust(60) + "|".rjust(39," "))
+        print("-"*100)
+    elif title_param == "national":
+        title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
+        print("-"*100)
+        print("|" + title.rjust(60) + "|".rjust(39," "))
+        print("-"*100)
 
 
 def getSoup(url, choice):
@@ -38,23 +54,21 @@ def getListTeams(soup):
     # ? MOST VALUABLE TEAMS
     list_club = soup.find("table", {"class": "items"}).find("tbody")
     no = 0
-
-    # TODO title gelecek
+    titleScript(soup, title_param="teams")
 
     for i in list_club.find_all("tr"):
         club = i.find_all("td")[2].text.strip()
         league = i.find_all("td")[3].text.strip()
         value = i.find_all("td")[4].text.strip()
         no += 1
-        print(str(no).rjust(2), club.ljust(70, "."), league.ljust(30), value.strip().ljust(5))
+        print(str(no).rjust(2), club.ljust(50, "."), league.ljust(30), value.strip().ljust(5))
 
 
 def getListPlayers(soup):
     # ? MOST VALUABLE PLAYERS
     list_footballer = soup.find("table", {"class": "items"}).find("tbody")
     no = 0
-
-    # TODO title gelecek
+    titleScript(soup, title_param="players")
 
     for temp_name_value in list_footballer.find_all("td", {"class": "hauptlink"}):
         add1 = temp_name_value.find("a").text.strip()
@@ -68,8 +82,7 @@ def getListPlayers(soup):
         x = True
         if x == True:
             for value in range(value_no, 50, 2):
-                print(str(no).rjust(2), playerList1[name].ljust(
-                    70, "."), playerList1[value].ljust(30))
+                print(str(no).rjust(2), playerList1[name].ljust(80, "."), playerList1[value].ljust(30))
                 no += 1
                 x = False
                 break
@@ -82,9 +95,9 @@ def getListNational(soup):
     # ? NATIONAL TEAM VALUES
     nationallist = []
     valuelist = []
-    list_national_team = soup.find(
-        "table", {"class": "items"}).find("tbody")
+    list_national_team = soup.find("table", {"class": "items"}).find("tbody")
     no = 0
+    titleScript(soup, title_param="national")
 
     for j in list_national_team.find_all("tr"):
         national_name = j.find_all("td")[1].text.strip()
@@ -101,8 +114,7 @@ def getListNational(soup):
         x = True
         if x == True:
             for v in range(value_no, 50, 2):
-                print(str(no).rjust(2), nationallist[n].ljust(
-                    70, "."), valuelist[v].ljust(30))
+                print(str(no).rjust(2), nationallist[n].ljust(80, "."), valuelist[v].ljust(30))
                 no += 1
                 x = False
                 break
