@@ -46,9 +46,11 @@ def titleScript(param, title_param):
         print("|" + title.rjust(60) + "|".rjust(39," "))
         print("-"*100)
     elif title_param == "uefa":
-        title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
+        title = param.find_all("div",{"class":"table-header"})
         print("-"*100)
-        print("|" + title.rjust(60) + "|".rjust(39," "))
+        for t in title:
+            print("|" + t.text.strip().rjust(60) + "|".rjust(39," "))
+            break
         print("-"*100)
 
 def getSoup(url, choice):
@@ -167,7 +169,7 @@ def getListUefa(soup):
     # ? UEFA RANKINGS
     list_uefa = soup.find("table", {"class": "items"}).find("tbody")
     no = 0
-    #titleScript(soup, title_param="uefa")
+    titleScript(soup, title_param="uefa")
 
     for temp_uefa in list_uefa.find_all("tr"):
         name = temp_uefa.find_all("td")
@@ -175,10 +177,8 @@ def getListUefa(soup):
             n.find_all("td")
             rankings.append(n.text.strip())
 
-
     for r in range(0,200,8):
         print(rankings[r].ljust(2),rankings[r+1].ljust(20),rankings[r+2].ljust(10),rankings[r+3].ljust(10),rankings[r+4].ljust(10),rankings[r+5].ljust(10),rankings[r+6].ljust(10),rankings[r+7].ljust(10))
-
 
 def menu():
     info.infoScript()
