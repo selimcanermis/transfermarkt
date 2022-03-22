@@ -141,3 +141,5 @@ por_transfer_all = "https://www.transfermarkt.com.tr/transfers/transferrekorde/s
 arg_transfer_all = "https://www.transfermarkt.com.tr/transfers/transferrekorde/statistik/top/plus/0/galerie/0?saison_id=alle&land_id=9&ausrichtung=&spielerposition_id=&altersklasse=&jahrgang=0&leihe=&w_s="
 #* BRE TRANSFER SEASONS
 bre_transfer_all = "https://www.transfermarkt.com.tr/transfers/transferrekorde/statistik/top/plus/0/galerie/0?saison_id=alle&land_id=26&ausrichtung=&spielerposition_id=&altersklasse=&jahrgang=0&leihe=&w_s="
+
+uefa_rankings = "https://www.transfermarkt.com.tr/statistik/5jahreswertung"

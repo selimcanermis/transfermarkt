@@ -8,6 +8,7 @@ headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KH
 
 playerList1 = []
 playerList2 = []
+rankings = []
 
 def positionSelect():
     temp = input("1- Tümü\n2- Kaleciler\n3- Defanslar\n4- Orta Sahalar\n5- Forvetler\n0- Geri\nSeçiminiz: ")
@@ -44,6 +45,11 @@ def titleScript(param, title_param):
         print("-"*100)
         print("|" + title.rjust(60) + "|".rjust(39," "))
         print("-"*100)
+    elif title_param == "uefa":
+        title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
+        print("-"*100)
+        print("|" + title.rjust(60) + "|".rjust(39," "))
+        print("-"*100)
 
 def getSoup(url, choice):
     html_request = requests.get(url, headers=headers)
@@ -56,6 +62,8 @@ def getSoup(url, choice):
         getListNational(soup)
     elif choice == 4:
         getListTransfer(soup)
+    elif choice == 5:
+        getListUefa(soup)
 
 def getListTeams(soup):
     # ? MOST VALUABLE TEAMS
@@ -155,6 +163,23 @@ def getListTransfer(soup):
     print("-"*100)
     playerList1.clear()
 
+def getListUefa(soup):
+    # ? UEFA RANKINGS
+    list_uefa = soup.find("table", {"class": "items"}).find("tbody")
+    no = 0
+    #titleScript(soup, title_param="uefa")
+
+    for temp_uefa in list_uefa.find_all("tr"):
+        name = temp_uefa.find_all("td")
+        for n in name:
+            n.find_all("td")
+            rankings.append(n.text.strip())
+
+
+    for r in range(0,200,8):
+        print(rankings[r].ljust(2),rankings[r+1].ljust(20),rankings[r+2].ljust(10),rankings[r+3].ljust(10),rankings[r+4].ljust(10),rankings[r+5].ljust(10),rankings[r+6].ljust(10),rankings[r+7].ljust(10))
+
+
 def menu():
     info.infoScript()
     start = False
@@ -164,7 +189,7 @@ def menu():
             print("-"*30)
             print("TRANSFERMARKT VERILERI".rjust(25))
             print("-"*30)
-            first_choice = input("1- En değerli kulüpler\n2- En değerli futbolcular \n3- En değerli milli takımlar\n4- En pahalı transferler\n0- Çıkış\nSeçiminiz?: ")
+            first_choice = input("1- En Değerli Kulüpler\n2- En Değerli Futbolcular \n3- En Değerli Milli Takımlar\n4- En Pahalı Transferler\n5- UEFA Sıralaması (5 Yıllık)\n0- Çıkış\nSeçiminiz?: ")
             print("-"*30)
 
             if first_choice == "0":
@@ -436,6 +461,8 @@ def menu():
                         elif season_choice == "23": 
                             getSoup(urls.wr_transfer_00_01, 4)
 
+            elif first_choice == "5":
+                getSoup(urls.uefa_rankings, 5)
 
             start = False
 
