@@ -30,21 +30,74 @@ def titleScript(param, title_param):
         print("-"*100)
         print("|" + title.rjust(60) + "|".rjust(39," "))
         print("-"*100)
+
+        list_uefa = param.find("table", {"class": "items"}).find("thead")
+        subtitle = list_uefa.find_all("tr")
+
+        for s in subtitle:
+            sub0 = s.find_all("th")[0].text
+            sub2 = s.find_all("th")[2].text
+            sub3 = s.find_all("th")[3].text
+            sub4 = s.find_all("th")[4].text
+
+        print(sub0.rjust(2), sub2.ljust(50), sub3.ljust(30), sub4.strip().ljust(5),"|")
+        print("-"*100)
+
     elif title_param == "players":
         title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
         print("-"*100)
         print("|" + title.rjust(60) + "|".rjust(39," "))
         print("-"*100)
+
+        list_uefa = param.find("table", {"class": "items"}).find("thead")
+        subtitle = list_uefa.find_all("tr")
+
+        for s in subtitle:
+            sub0 = s.find_all("th")[0].text
+            sub1 = s.find_all("th")[1].text
+            sub5 = s.find_all("th")[5].text
+
+        print(sub0.rjust(2), sub1.ljust(80), sub5.ljust(10), " |")
+        print("-"*100)
+
     elif title_param == "national":
         title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
         print("-"*100)
         print("|" + title.rjust(60) + "|".rjust(39," "))
         print("-"*100)
+
+        list_national_team = param.find("table", {"class": "items"}).find("thead")
+        subtitle = list_national_team.find_all("tr")
+
+        for s in subtitle:
+            sub0 = s.find_all("th")[0].text
+            sub1 = s.find_all("th")[1].text
+            sub2 = s.find_all("th")[2].text
+            sub3 = s.find_all("th")[3].text
+
+        print(sub0.rjust(2), sub1.ljust(80), sub3.ljust(5)," |")
+        print("-"*100)
+
+# ! EDIT EDIT EDIT
     elif title_param == "transfers":
         title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
         print("-"*100)
         print("|" + title.rjust(60) + "|".rjust(39," "))
         print("-"*100)
+
+        list_transfer = param.find("table", {"class": "items"}).find("thead")
+        subtitle = list_transfer.find_all("tr")
+
+        for s in subtitle:
+            sub0 = s.find_all("th")[0].text
+            sub1 = s.find_all("th")[1].text
+            sub2 = s.find_all("th")[2].text
+            sub3 = s.find_all("th")[3].text
+
+        #print(str(no).rjust(2), playerList1[name].ljust(50, "."), playerList1[club].ljust(30), playerList1[value].strip().ljust(5))
+        print("-"*100)
+
+
     elif title_param == "uefa":
         title = param.find_all("div",{"class":"table-header"})
         print("-"*100)
@@ -53,24 +106,20 @@ def titleScript(param, title_param):
             break
         print("-"*100)
 
-        subtitle = []
         list_uefa = param.find("table", {"class": "items"}).find_all("thead")[1]
-        year = list_uefa.find_all("tr")
-        for y in year:
-            sub0 = y.find_all("th")[0].text
-            sub1 = y.find_all("th")[1].text
-            sub2 = y.find_all("th")[2].text
-            sub3 = y.find_all("th")[3].text
-            sub4 = y.find_all("th")[4].text
-            sub5 = y.find_all("th")[5].text
-            sub6 = y.find_all("th")[6].text
-            sub7 = y.find_all("th")[7].text
+        subtitle = list_uefa.find_all("tr")
+        for s in subtitle:
+            sub0 = s.find_all("th")[0].text
+            sub1 = s.find_all("th")[1].text
+            sub2 = s.find_all("th")[2].text
+            sub3 = s.find_all("th")[3].text
+            sub4 = s.find_all("th")[4].text
+            sub5 = s.find_all("th")[5].text
+            sub6 = s.find_all("th")[6].text
+            sub7 = s.find_all("th")[7].text
 
         print(sub0.ljust(2),sub1.ljust(20),sub2.ljust(12),sub3.ljust(12),sub4.ljust(12),sub5.ljust(12),sub6.ljust(12),sub7.ljust(9),"|")
         print("-"*100)
-        
-
-        
 
 def getSoup(url, choice):
     html_request = requests.get(url, headers=headers)
