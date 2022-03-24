@@ -53,6 +53,25 @@ def titleScript(param, title_param):
             break
         print("-"*100)
 
+        subtitle = []
+        list_uefa = param.find("table", {"class": "items"}).find_all("thead")[1]
+        year = list_uefa.find_all("tr")
+        for y in year:
+            sub0 = y.find_all("th")[0].text
+            sub1 = y.find_all("th")[1].text
+            sub2 = y.find_all("th")[2].text
+            sub3 = y.find_all("th")[3].text
+            sub4 = y.find_all("th")[4].text
+            sub5 = y.find_all("th")[5].text
+            sub6 = y.find_all("th")[6].text
+            sub7 = y.find_all("th")[7].text
+
+        print(sub0.ljust(2),sub1.ljust(20),sub2.ljust(12),sub3.ljust(12),sub4.ljust(12),sub5.ljust(12),sub6.ljust(12),sub7.ljust(9),"|")
+        print("-"*100)
+        
+
+        
+
 def getSoup(url, choice):
     html_request = requests.get(url, headers=headers)
     soup = BeautifulSoup(html_request.content, "html.parser")
@@ -178,7 +197,7 @@ def getListUefa(soup):
             rankings.append(n.text.strip())
 
     for r in range(0,200,8):
-        print(rankings[r].ljust(2),rankings[r+1].ljust(20),rankings[r+2].ljust(10),rankings[r+3].ljust(10),rankings[r+4].ljust(10),rankings[r+5].ljust(10),rankings[r+6].ljust(10),rankings[r+7].ljust(10))
+        print(rankings[r].ljust(2),rankings[r+1].ljust(20),rankings[r+2].ljust(12),rankings[r+3].ljust(12),rankings[r+4].ljust(12),rankings[r+5].ljust(12),rankings[r+6].ljust(12),rankings[r+7].ljust(12))
 
 def menu():
     info.infoScript()
@@ -469,4 +488,3 @@ def menu():
 
 
 menu()
-#jgetSoup(urls.most_transfer, 2)
