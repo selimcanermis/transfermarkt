@@ -78,7 +78,6 @@ def titleScript(param, title_param):
         print(sub0.rjust(2), sub1.ljust(80), sub3.ljust(5)," |")
         print("-"*100)
 
-# ! EDIT EDIT EDIT
     elif title_param == "transfers":
         title = param.find("h2",{"class":"content-box-headline"}).string.strip().upper()
         print("-"*100)
@@ -91,10 +90,10 @@ def titleScript(param, title_param):
         for s in subtitle:
             sub0 = s.find_all("th")[0].text
             sub1 = s.find_all("th")[1].text
-            sub2 = s.find_all("th")[2].text
-            sub3 = s.find_all("th")[3].text
+            sub4 = s.find_all("th")[4].text
+            sub5 = s.find_all("th")[5].text
 
-        #print(str(no).rjust(2), playerList1[name].ljust(50, "."), playerList1[club].ljust(30), playerList1[value].strip().ljust(5))
+        print(sub0.rjust(2),sub1.ljust(50), sub4.ljust(30), sub5.ljust(5))
         print("-"*100)
 
 
@@ -134,6 +133,8 @@ def getSoup(url, choice):
         getListTransfer(soup)
     elif choice == 5:
         getListUefa(soup)
+    elif choice == 6:
+        getListBest(soup)
 
 def getListTeams(soup):
     # ? MOST VALUABLE TEAMS
@@ -248,6 +249,34 @@ def getListUefa(soup):
     for r in range(0,200,8):
         print(rankings[r].ljust(2),rankings[r+1].ljust(20),rankings[r+2].ljust(12),rankings[r+3].ljust(12),rankings[r+4].ljust(12),rankings[r+5].ljust(12),rankings[r+6].ljust(12),rankings[r+7].ljust(12))
 
+# ! DEVAM ET BURADAN
+def getListBest(soup):
+    # ? THE BEST PLAYER
+    list_best = soup.find("table",{"class":"items"}).find("tbody")
+    no = 0
+    titleScript(soup, title_param="best")
+
+    yearName = []
+    for temp_best in list_best.find_all("tr"):
+        year = temp_best.find_all("td",{"class":"hauptlink"})
+        for y in year:
+            yearName.append(y.text.strip())
+    for i in range(0,len(yearName),1):
+        print(yearName[i])
+
+    valueList = []
+    value = list_best.find_all("td",{"class":"rechts"})
+    for v in value:
+        valueList.append(v.text)
+    
+    age = list_best.find_all("td",{"class":"zentriert"})
+    tempfor = 3
+    for a in range(tempfor,len(age)-1):
+        print(age[tempfor])
+        tempfor += 4
+    #for temp_best in list_best.find_all("tr"):
+
+
 def menu():
     info.infoScript()
     start = False
@@ -257,7 +286,7 @@ def menu():
             print("-"*30)
             print("TRANSFERMARKT VERILERI".rjust(25))
             print("-"*30)
-            first_choice = input("1- En Değerli Kulüpler\n2- En Değerli Futbolcular \n3- En Değerli Milli Takımlar\n4- En Pahalı Transferler\n5- UEFA Sıralaması (5 Yıllık)\n0- Çıkış\nSeçiminiz?: ")
+            first_choice = input("1- En Değerli Kulüpler\n2- En Değerli Futbolcular \n3- En Değerli Milli Takımlar\n4- En Pahalı Transferler\n5- UEFA Sıralaması (5 Yıllık)\n6- FIFA Yılın Oyuncuları\n0- Çıkış\nSeçiminiz?: ")
             print("-"*30)
 
             if first_choice == "0":
@@ -531,6 +560,8 @@ def menu():
 
             elif first_choice == "5":
                 getSoup(urls.uefa_rankings, 5)
+            elif first_choice == "6":
+                getSoup(urls.fifa_the_best, 6)
 
             start = False
 
