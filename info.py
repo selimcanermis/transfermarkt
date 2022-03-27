@@ -8,7 +8,7 @@ def infoScript():
         print("#github              :github.com/selimcanermis   #")
         print("#year                :2022                       #")
         print("#python_version      :3.8.6                      #")
-        print("#bs4_version         :4.9.3                      #")
+        print("#bs4_version         :4.10                      #")
         print("#requests_version    :2.24.0                     #")
         print("#"*50)
         print("\n\n")
